@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import './styles.css'
 import { TicketModal } from "./TicketModal";
-import config from '../config';
+import { fetchTickets } from "./service/ticketService";
 
 export interface Ticket {
   id: string;
@@ -17,25 +16,16 @@ export const ViewTickets = () => {
   const [showTicketModal, setShowTicketModal] = useState(false)
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null)
 
-  const fetchTickets = async () => {
-    try {
-      const response = await fetch(`${config.apiUrl}/ticket`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setTickets(data);
-      }
-    } catch (error) {
-      console.log('Error fetching tickets', error);
-    }
-  };
-
   useEffect(() => {
-    fetchTickets();
+    const getTickets = async () => {
+      try {
+        const data = await fetchTickets();
+        setTickets(data);
+      } catch (error) {
+        console.error('Error fetching tickets', error);
+      }
+    };
+    getTickets();
   }, []);
 
   const handleSaveTicket = async (updatedTicket: Ticket) => {
@@ -56,62 +46,74 @@ export const ViewTickets = () => {
     return tickets
       .filter(ticket => ticket.status === status)
       .map((ticket, index) => (
-        <tr key={index}>
-          <td className="td" >{ticket.name}</td>
-          <td className="td">{ticket.email}</td>
-          <td className="td td-description">{ticket.description}</td>
-          <td className="td">
-            <button onClick={() => handleOpenModal(ticket)}>edit</button>
+        <tr key={index} className="even:bg-gray-100 hover:bg-gray-200">
+          <td className="border px-4 py-2 text-black" >{ticket.name}</td>
+          <td className="border px-4 py-2 text-black">{ticket.email}</td>
+          <td className="border px-4 py-2 text-black w-72 hidden md:table-cell">{ticket.description}</td>
+          <td className="border px-4 py-2 text-white text-center">
+            <button className="bg-black" onClick={() => handleOpenModal(ticket)}>View</button>
           </td>
         </tr>
       ));
   };
 
   return (
-    <div className='tableContainer'>
-      <h1>All Tickets</h1>
-      <h2>New Tickets</h2>
-      <table className='table'>
+    <div className="container mx-auto px-4 py-6">
+      <h1 className="text-2xl font-bold mb-6">All Tickets</h1>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">New Tickets</h2>
+      <div className="overflow-x-auto">
+      <table className="min-w-full bg-white border border-collapse border-gray-200">
         <thead>
           <tr>
-            <th className='th'>Name</th>
-            <th className='th'>Email</th>
-            <th className='th-description'>Description</th>
-            <th className='th'>Edit</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">Name</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">Email</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black hidden md:table-cell">Description</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">View Ticket</th>
           </tr>
         </thead>
         <tbody>
           {renderTicketsByStatus('NEW')}
         </tbody>
       </table>
-      <h2>In Progress</h2>
-      <table className='table'>
+      </div>
+      </div>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">In Progress</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-collapse border-gray-200">
         <thead>
           <tr>
-            <th className='th'>Name</th>
-            <th className='th'>Email</th>
-            <th className='th-description'>Description</th>
-            <th className='th'>Edit</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">Name</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">Email</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black hidden md:table-cell">Description</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">View Ticket</th>
           </tr>
         </thead>
         <tbody>
           {renderTicketsByStatus('IN_PROGRESS')}
         </tbody>
       </table>
-      <h2>Resolved</h2>
-      <table className='table'>
+      </div>
+      </div>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Resolved</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-collapse border-gray-200">
         <thead>
           <tr>
-            <th className='th'>Name</th>
-            <th className='th'>Email</th>
-            <th className='th-description'>Description</th>
-            <th className='th'>Edit</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">Name</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">Email</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black hidden md:table-cell">Description</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black">View Ticket</th>
           </tr>
         </thead>
         <tbody>
           {renderTicketsByStatus('RESOLVED')}
         </tbody>
       </table>
+      </div>
+      </div>
       <TicketModal
         ticket={selectedTicket}
         show={showTicketModal}
