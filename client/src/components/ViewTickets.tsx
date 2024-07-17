@@ -47,10 +47,10 @@ export const ViewTickets = () => {
       .filter(ticket => ticket.status === status)
       .map((ticket, index) => (
         <tr key={index} className="even:bg-gray-100 hover:bg-gray-200">
-          <td className="border px-4 py-2 text-black" >{ticket.name}</td>
-          <td className="border px-4 py-2 text-black">{ticket.email}</td>
-          <td className="border px-4 py-2 text-black w-72 hidden md:table-cell">{ticket.description}</td>
-          <td className="border px-4 py-2 text-white text-center">
+          <td className="border px-4 py-2 text-black w-custom-name" >{ticket.name}</td>
+          <td className="border px-4 py-2 text-black w-custom-email">{ticket.email}</td>
+          <td className="border px-4 py-2 text-black w-custom-description hidden md:table-cell">{ticket.description}</td>
+          <td className="border px-4 py-2 text-white w-custom-view text-center">
             <button className="bg-black" onClick={() => handleOpenModal(ticket)}>View</button>
           </td>
         </tr>
@@ -66,10 +66,10 @@ export const ViewTickets = () => {
       <table className="min-w-full bg-white border border-collapse border-gray-200">
         <thead>
           <tr>
-            <th className="bg-gray-100 border px-4 py-2 text-black">Name</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black">Email</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black hidden md:table-cell">Description</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black">View Ticket</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-name">Name</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-email">Email</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-description hidden md:table-cell">Description</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-view">View Ticket</th>
           </tr>
         </thead>
         <tbody>
@@ -84,10 +84,10 @@ export const ViewTickets = () => {
           <table className="min-w-full bg-white border border-collapse border-gray-200">
         <thead>
           <tr>
-            <th className="bg-gray-100 border px-4 py-2 text-black">Name</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black">Email</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black hidden md:table-cell">Description</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black">View Ticket</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-name">Name</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-email">Email</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-description hidden md:table-cell">Description</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-view">View Ticket</th>
           </tr>
         </thead>
         <tbody>
@@ -102,10 +102,10 @@ export const ViewTickets = () => {
           <table className="min-w-full bg-white border border-collapse border-gray-200">
         <thead>
           <tr>
-            <th className="bg-gray-100 border px-4 py-2 text-black">Name</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black">Email</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black hidden md:table-cell">Description</th>
-            <th className="bg-gray-100 border px-4 py-2 text-black">View Ticket</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-name">Name</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-email">Email</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-description hidden md:table-cell">Description</th>
+            <th className="bg-gray-100 border px-4 py-2 text-black w-custom-view">View Ticket</th>
           </tr>
         </thead>
         <tbody>
