@@ -44,7 +44,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ ticket, show, onClose,
     }
   };
 
-  const handleStatusChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value as TicketStatus);
   };
 
@@ -62,16 +62,41 @@ export const TicketModal: React.FC<TicketModalProps> = ({ ticket, show, onClose,
         <p className="text-black">Email: {ticket.email}</p>
         <p className="text-black">Description:</p>
         <p className='border p-2 rounded-md mb-4 text-black'>{ticket.description}</p>
-        <div className="mb-4">
-          <label className="block font-bold mb-2 text-black">
-            Status: 
-            <select className="block w-full mt-1 p-2 border rounded-md text-center font-normal text-black dark:bg-gray-200" value={status} onChange={handleStatusChange}>
-              <option value={TicketStatus.NEW}>New</option>
-              <option value={TicketStatus.IN_PROGRESS}>In Progress</option>
-              <option value={TicketStatus.RESOLVED}>Resolved</option>
-            </select>
-          </label>
+        <div className="mb-4 items-center">
+          <label className="block font-bold mb-2 text-black">Status:</label>
+          <div className="flex space-x-4 justify-center">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value={TicketStatus.NEW}
+                checked={status === TicketStatus.NEW}
+                onChange={handleStatusChange}
+                className="form-radio text-black"
+              />
+              <span className="text-black">New</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value={TicketStatus.IN_PROGRESS}
+                checked={status === TicketStatus.IN_PROGRESS}
+                onChange={handleStatusChange}
+                className="form-radio text-black"
+              />
+              <span className="text-black">In Progress</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value={TicketStatus.RESOLVED}
+                checked={status === TicketStatus.RESOLVED}
+                onChange={handleStatusChange}
+                className="form-radio text-black"
+              />
+              <span className="text-black">Resolved</span>
+            </label>
           </div>
+        </div>
           <div className="mb-4">
             <p className="font-bold mb-2">Comments:</p>
             <div className="border p-2 rounded-md mb-4 max-h-32 overflow-y-auto text-black">
